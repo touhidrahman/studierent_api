@@ -1,0 +1,11 @@
+name: s_api_v2
+version: 0.0.1
+description: A simple console application.
+dependencies:
+  logging: 'any'
+  rpc: 'any'
+  dartson: 'any'
+  mongo_dart: 'any'
+  json_object: '1.0.19'
+transformers:
+- dartson
