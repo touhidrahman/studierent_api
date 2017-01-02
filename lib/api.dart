@@ -4,6 +4,7 @@ import 'dart:mirrors';
 import 'package:rpc/rpc.dart';
 import 'package:mongo_dart/mongo_dart.dart';
 import 'package:dartson/dartson.dart';
+import 'entities.dart';
 
 const DB_URI = "mongodb://localhost:27017/studierent";
 final dson = new Dartson.JSON();
@@ -60,41 +61,47 @@ class UsersResource{
     await db.close();
     return result;
   }
-//  Future<List<User>> getUsers() async {
-//    Db db = new Db(DB_URI);
-//    await db.open();
-//    var collection = db.collection('user');
-//    List result = [];
-//    await collection.find().forEach((user) {
-//      result.add(new User.fromJson(user));
-//    });
-//    await db.close();
-//    return result;
-//  }
+
 
   @ApiMethod(path: 'users', method: 'POST')
-  Future<VoidMessage> addUser(User request) async {
+  Future<User> addUser(User request) async {
 
     Db db = new Db(DB_URI);
     await db.open();
     var collection = db.collection('user');
-    collection.insert(objectToMap(request));
+    await collection.insert(objectToMap(request));
+    await db.close();
+    return request;
   }
-}
 
 
-@Entity()
-class User{
-  String name;
-  String email;
-  String password;
-  String gender;
-  String address;
-  String city;
-  String country;
-  String contactNo;
-  String resetKey;
-  bool status;
+  @ApiMethod(path: 'users/{email}', method: 'DELETE')
+  Future<VoidMessage> deleteUser(String email) async
+  {
+    Db db = new Db(DB_URI);
+    await db.open();
+    var collection = db.collection('user');
+    await collection.remove(where.eq("email", email));
+    await db.close();
+  }
+
+
+  @ApiMethod(path: 'users/{email}', method: 'PUT')
+  Future<VoidMessage> updateUser(String email, User request) async {
+    Db db = new Db(DB_URI);
+    await db.open();
+    var collection = db.collection('user');
+    var res = await collection.findOne({"email":email});
+    res["name"] ??= request.name;
+    res["contactNo"] ??= request.contactNo;
+    res["address"] ??= request.address;
+    res["city"] ??= request.city;
+    res["country"] ??= request.country;
+    res["gender"] ??= request.gender;
+    res["resetKey"] ??= request.resetKey;
+    await collection.save(res);
+    await db.close();
+  }
 
 }
 

@@ -5,7 +5,7 @@ dependencies:
   logging: 'any'
   rpc: 'any'
   dartson: 'any'
-  mongo_dart: 'any'
+  mongo_dart: '0.2.10'
   json_object: '1.0.19'
 transformers:
 - dartson
