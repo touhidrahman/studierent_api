@@ -4,7 +4,7 @@ import 'dart:async';
 import 'dart:mirrors';
 import 'package:mongo_dart/mongo_dart.dart';
 import 'db_pool.dart';
-import 'entities.dart';
+import 'package:s_api_v2/entities.dart';
 import 'package:connection_pool/connection_pool.dart';
 
 /**
@@ -192,6 +192,16 @@ class Model
   }
 
   // get a collection based off a type and optional query
+//  Future<List> readCollectionByType() async {
+//    List list = new List();
+//    return _getCollection(new User().collectionKey)
+//        .then((items) {
+//      items.forEach((item){
+//        list.add(mapToEntity(User, item));
+//      });
+//      return list;
+//    });
+//  }
   Future<List> readCollectionByType(t, [Map query = null]) async {
     List list = new List();
     BaseEntity freshInstance = getInstance(t);

@@ -6,8 +6,8 @@ import 'dart:mirrors';
 import 'package:rpc/rpc.dart';
 import 'package:mongo_dart/mongo_dart.dart';
 import 'package:dartson/dartson.dart';
-import 'entities.dart';
-import 'model.dart';
+import 'package:s_api_v2/entities.dart';
+import 'package:s_api_v2/model.dart';
 
 const DB_URI = "mongodb://localhost:27017/studierent";
 final dson = new Dartson.JSON();
