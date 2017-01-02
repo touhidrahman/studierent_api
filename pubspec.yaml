@@ -3,9 +3,10 @@ version: 0.0.1
 description: A simple console application.
 dependencies:
   logging: 'any'
-  rpc: 'any'
+  rpc: '0.5.7'
   dartson: 'any'
   mongo_dart: 'any'
   json_object: '1.0.19'
+  connection_pool: '0.1.2'
 transformers:
 - dartson
